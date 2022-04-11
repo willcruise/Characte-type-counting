@@ -1,0 +1,43 @@
+#include <stdio.h>
+
+#define NEW 1
+#define OLD 0
+
+int main() {
+	int c[10000];
+	int type[100];
+	int count[100];
+	int typecount;
+	int state;
+
+	for (int i = 0; i < 100; i++)count[i] = 0;
+	c[0] = getchar();
+	type[0] = c[0];
+	count[0] = 1;
+	typecount = 1;
+	for (int i = 1; (c[i] = getchar()) != '\n'; i++) {
+		state = NEW;
+		for (int j = 0; j < typecount; j++) {
+			
+			if (type[j] == c[i]) {
+				++count[j];
+				state = OLD;
+			}
+			else continue;
+		}
+		if (state == NEW) {
+			++typecount;
+			type[typecount-1] = c[i];
+			count[typecount-1]++;
+			
+		}
+	}
+	for (int i = 0; i < typecount; i++) {
+		putchar(type[i]); printf(" ");
+		printf("%d ", count[i]);
+		for (int j = 0; j < count[i]; j++) printf("*");
+		printf("\n");
+		
+	}
+
+}
